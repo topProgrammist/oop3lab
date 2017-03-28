@@ -2,7 +2,6 @@ c:\users\пользователь\documents\visual studio 2015\Projects\WindowsF
 C:\Users\Пользователь\Documents\GitHub\oop3\WindowsFormsApplication7\bin\Debug\WindowsFormsApplication7.exe.config
 C:\Users\Пользователь\Documents\GitHub\oop3\WindowsFormsApplication7\bin\Debug\WindowsFormsApplication7.exe
 C:\Users\Пользователь\Documents\GitHub\oop3\WindowsFormsApplication7\bin\Debug\WindowsFormsApplication7.pdb
-C:\Users\Пользователь\Documents\GitHub\oop3\WindowsFormsApplication7\obj\Debug\WindowsFormsApplication7.csprojResolveAssemblyReference.cache
 C:\Users\Пользователь\Documents\GitHub\oop3\WindowsFormsApplication7\obj\Debug\WindowsFormsApplication7.Form1.resources
 C:\Users\Пользователь\Documents\GitHub\oop3\WindowsFormsApplication7\obj\Debug\WindowsFormsApplication7.Properties.Resources.resources
 C:\Users\Пользователь\Documents\GitHub\oop3\WindowsFormsApplication7\obj\Debug\WindowsFormsApplication7.csproj.GenerateResource.Cache

@@ -21,7 +21,7 @@ namespace WindowsFormsApplication7
             str[2] = Radius.ToString();
             str[3] = Temperature.ToString();
             str[4] = RotationPeriod.ToString();
-            str[5] = Satellites;
+            str[5] = Satellites.ToString();
             str[6] = AttractivePower.ToString();
             return str;
         }
@@ -33,19 +33,20 @@ namespace WindowsFormsApplication7
             Radius = Int32.Parse(param[2]);
             Temperature = Int32.Parse(param[3]);
             RotationPeriod = Mass = Int32.Parse(param[4]);
-            Satellites = param[5];
+            Satellites = Int32.Parse(param[5]);
             AttractivePower = Int32.Parse(param[6]);
         }
 
         public override string[] getNames()
         {
-            string[] str = new string[6];
+            string[] str = new string[7];
             str[0] = "Название";
             str[1] = "Масса";
             str[2] = "Радиус";
             str[3] = "Температура";
             str[4] = "Период вращения";
-            str[5] = "Сила притяжения";
+            str[5] = "Число спутников";
+            str[6] = "Сила притяжения";
             return str;
         }
     }

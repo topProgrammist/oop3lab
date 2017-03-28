@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace WindowsFormsApplication7
 {
-    [Serializable]
+    [DataContract]
     class Star : AstronomicalObject
     {
+        [DataMember]
         public string StarType { get; set; }
+        [DataMember]
         public string StarColor { get; set; }
 
         public Star(string StarType, string StarColor)

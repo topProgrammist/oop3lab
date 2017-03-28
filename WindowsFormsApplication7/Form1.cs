@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.Serialization;
 
 namespace WindowsFormsApplication7
 {
@@ -17,32 +20,33 @@ namespace WindowsFormsApplication7
         public Form1()
         {
             InitializeComponent();
+           
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+
 
             List<AstronomicalObject> temp = new List<AstronomicalObject>();
             temp.Add(new Star());
             temp.Add(new SolidPlanet());
             temp.Add(new GasPlanet());
             temp.Add(new Comet());
-            AstronomicalObject newObj = null;
+            AstronomicalObject newObj;
             newObj = setInfo(temp[cmb.SelectedIndex]);
             if (mode == 0)
             {
                 astronomicalObjects.Add(newObj);
-                listBox1.Items.Add(cmb.Text);
+                listBox1.Items.Add(newObj.Name);
             }
             else
                 astronomicalObjects[listBox1.SelectedIndex] = newObj;
-     //       txtBoxOutput.Lines = newObj.getObjectInfo();
-       //     }
         }
 
         private string[] getInfo()
@@ -122,6 +126,7 @@ namespace WindowsFormsApplication7
         {
             mode = 0;
             button1.Visible = true;
+            button1.Text = "Добавить";
             txtBoxOutput.Visible = false;
             makeVisible(cmb.SelectedIndex);
         }
@@ -138,7 +143,8 @@ namespace WindowsFormsApplication7
 
         private void listBox1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(listBox1.SelectedIndex.ToString());
+            if (listBox1.SelectedIndex == -1)
+                return;
             string[] str;
             txtBoxOutput.Visible = true;
             str = astronomicalObjects[listBox1.SelectedIndex].getObjectInfo();
@@ -158,6 +164,8 @@ namespace WindowsFormsApplication7
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
+            if (listBox1.SelectedIndex == -1)
+                return;
             mode = 1;
             button1.Visible = true;
             txtBoxOutput.Visible = false;
@@ -173,6 +181,49 @@ namespace WindowsFormsApplication7
                     index = i;
             }
             makeVisible(index);
+            button1.Text = "Изменить";
+        }
+
+        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Stream myStream = null;
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    if ((myStream = openFileDialog1.OpenFile()) != null)
+                    {
+                        using (myStream)
+                        {
+                            astronomicalObjects.Clear();
+                            listBox1.Items.Clear();
+                            DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<AstronomicalObject>));
+                            List<AstronomicalObject> temp = (List<AstronomicalObject>)jsonFormatter.ReadObject(myStream);
+                            astronomicalObjects = temp;
+                            foreach (AstronomicalObject obj in astronomicalObjects)
+                                listBox1.Items.Add(obj.Name);
+                        }
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("ОШИБКА");
+                }
+            }
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Stream myStream = null;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if ((myStream = saveFileDialog1.OpenFile()) != null)
+                {
+                    DataContractJsonSerializer jsonFormatter = new DataContractJsonSerializer(typeof(List<AstronomicalObject>));
+                    jsonFormatter.WriteObject(myStream, astronomicalObjects);
+                    myStream.Close();
+                }
+            }
         }
     }
 }

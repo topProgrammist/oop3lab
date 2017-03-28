@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace WindowsFormsApplication7
 {
-    [Serializable]
+    [DataContract]
+    [KnownType(typeof(Comet))]
     public abstract class NonStarObject : AstronomicalObject
     {
   //      public AstronomicalObject CentralBody { get; set; }
