@@ -14,6 +14,9 @@ namespace WindowsFormsApplication7
         public double Radius { get; set; }
         public double Temperature { get; set; }
         public double RotationPeriod { get; set; }
-        public double DistanceToTheStar { get; set; }
+
+        public abstract string[] getObjectInfo();
+        public abstract void setParam(string[] param);
+        public abstract string[] getNames();
     }
 }
