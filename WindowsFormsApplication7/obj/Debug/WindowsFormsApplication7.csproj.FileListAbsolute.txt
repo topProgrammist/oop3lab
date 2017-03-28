@@ -1,0 +1,2 @@
+c:\users\пользователь\documents\visual studio 2015\Projects\WindowsFormsApplication7\WindowsFormsApplication7\bin\Debug\WindowsFormsApplication7.exe.config
+C:\Users\Пользователь\Documents\GitHub\oop3\WindowsFormsApplication7\bin\Debug\WindowsFormsApplication7.exe.config
