@@ -24,40 +24,8 @@ namespace WindowsFormsApplication7
 
         }
 
-
-        private AstronomicalObject changeObject(AstronomicalObject astrObject)
-        {
-            astrObject = new SolidPlanet();
-            PropertyDescriptor descr = TypeDescriptor.GetProperties(astrObject)["Id"];
-            
-            // curr.
-            switch (cmb.Text)
-            {
-                case "Звезда":
-                    Star star = (Star)astrObject;
-                        return star;
-                case "Газовая планета":
-                    GasPlanet gasPlanet = (GasPlanet)astrObject;
-                        return gasPlanet;
-                case "Твердотельная планета":
-                    SolidPlanet solidPlanet = (SolidPlanet)astrObject;
-                    return solidPlanet;
-                case "Комета":
-                    Comet comet = (Comet)astrObject;
-                    return comet;
-         //       case "Астероид":
-           //         GasPlanet gasPlanet = (GasPlanet)astrObject;
-             //     return gasPlanet;
-              //      break;
-              //  default:
-                //    break;
-            }
-
-            return null;
-        }
         private void button1_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Add(cmb.Text);
 
             List<AstronomicalObject> temp = new List<AstronomicalObject>();
             temp.Add(new Star());
@@ -65,12 +33,15 @@ namespace WindowsFormsApplication7
             temp.Add(new GasPlanet());
             temp.Add(new Comet());
             AstronomicalObject newObj = null;
-   //         if (mode == 1)
-     //       {
-                newObj = setInfo(temp[cmb.SelectedIndex]);
+            newObj = setInfo(temp[cmb.SelectedIndex]);
+            if (mode == 0)
+            {
                 astronomicalObjects.Add(newObj);
-            //  astronomicalObjects.
-            txtBoxOutput.Lines = newObj.getObjectInfo();
+                listBox1.Items.Add(cmb.Text);
+            }
+            else
+                astronomicalObjects[listBox1.SelectedIndex] = newObj;
+     //       txtBoxOutput.Lines = newObj.getObjectInfo();
        //     }
         }
 
@@ -103,7 +74,8 @@ namespace WindowsFormsApplication7
             obj.setParam(str);
             return obj;
         }
-        private void cmb_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void makeVisible(int index)
         {
             List<AstronomicalObject> temp = new List<AstronomicalObject>();
             temp.Add(new Star());
@@ -131,7 +103,7 @@ namespace WindowsFormsApplication7
             txtBox.Add(textBox6);
             txtBox.Add(textBox7);
 
-            str = temp[cmb.SelectedIndex].getNames();
+            str = temp[index].getNames();
             for (i = 0; i < 7; i++)
             {
                 lbl[i].Visible = false;
@@ -144,7 +116,63 @@ namespace WindowsFormsApplication7
                 lbl[i].Text = str[i];
                 lbl[i].Visible = true;
                 txtBox[i].Visible = true;
-            } 
+            }
+        }
+        private void cmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mode = 0;
+            button1.Visible = true;
+            txtBoxOutput.Visible = false;
+            makeVisible(cmb.SelectedIndex);
+        }
+
+        private void listBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                astronomicalObjects.RemoveAt(listBox1.SelectedIndex);
+                listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+                txtBoxOutput.Clear();
+            }
+        }
+
+        private void listBox1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(listBox1.SelectedIndex.ToString());
+            string[] str;
+            txtBoxOutput.Visible = true;
+            str = astronomicalObjects[listBox1.SelectedIndex].getObjectInfo();
+            txtBoxOutput.Lines = str;
+
+            foreach (var label in Controls.OfType<Label>())
+            {
+                label.Visible = false;
+            }
+            foreach (var TextBox in Controls.OfType<TextBox>())
+            {
+                if (TextBox != txtBoxOutput)
+                    TextBox.Visible = false;
+            }
+            button1.Visible = false;
+        }
+
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            mode = 1;
+            button1.Visible = true;
+            txtBoxOutput.Visible = false;
+            List<AstronomicalObject> temp = new List<AstronomicalObject>();
+            temp.Add(new Star());
+            temp.Add(new SolidPlanet());
+            temp.Add(new GasPlanet());
+            temp.Add(new Comet());
+            int index = 0;
+            for (int i = 0; i < 4; i++)
+            {
+                if (Object.ReferenceEquals(temp[i].GetType(), astronomicalObjects[listBox1.SelectedIndex].GetType()))
+                    index = i;
+            }
+            makeVisible(index);
         }
     }
 }

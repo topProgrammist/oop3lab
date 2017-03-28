@@ -65,6 +65,9 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(269, 264);
             this.listBox1.TabIndex = 1;
+            this.listBox1.Click += new System.EventHandler(this.listBox1_Click);
+            this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
+            this.listBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listBox1_KeyUp);
             // 
             // cmb
             // 
@@ -179,11 +182,12 @@
             // 
             // txtBoxOutput
             // 
-            this.txtBoxOutput.Location = new System.Drawing.Point(555, 179);
+            this.txtBoxOutput.Location = new System.Drawing.Point(301, 63);
             this.txtBoxOutput.Multiline = true;
             this.txtBoxOutput.Name = "txtBoxOutput";
-            this.txtBoxOutput.Size = new System.Drawing.Size(203, 111);
+            this.txtBoxOutput.Size = new System.Drawing.Size(375, 227);
             this.txtBoxOutput.TabIndex = 15;
+            this.txtBoxOutput.Visible = false;
             // 
             // label7
             // 
@@ -205,10 +209,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(799, 315);
+            this.ClientSize = new System.Drawing.Size(700, 315);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.txtBoxOutput);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -224,6 +227,7 @@
             this.Controls.Add(this.cmb);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.txtBoxOutput);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
